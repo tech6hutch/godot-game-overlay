@@ -1,0 +1,81 @@
+[gd_scene load_steps=4 format=3 uid="uid://23a5i06xuuqg"]
+
+[ext_resource type="Script" path="res://global/GbOverlay.gd" id="1_yv47p"]
+[ext_resource type="Texture2D" uid="uid://cjmfwx32pav0v" path="res://assets/overlay.png" id="2_vmmqu"]
+[ext_resource type="Texture2D" uid="uid://c22xx6rj4ogyn" path="res://assets/overlay-pressed.png" id="3_dfo6l"]
+
+[node name="GbOverlay" type="Node2D"]
+script = ExtResource("1_yv47p")
+
+[node name="Overlay" type="Sprite2D" parent="."]
+position = Vector2(-160, -63)
+texture = ExtResource("2_vmmqu")
+centered = false
+
+[node name="Camera2D" type="Camera2D" parent="Overlay"]
+anchor_mode = 0
+
+[node name="ModelLabel" type="Label" parent="Overlay"]
+offset_left = 160.0
+offset_top = 212.0
+offset_right = 320.0
+offset_bottom = 232.0
+theme_override_colors/font_color = Color(0.607843, 0.678431, 0.717647, 1)
+text = "Game Buy"
+horizontal_alignment = 1
+
+[node name="PressLeft" type="Sprite2D" parent="Overlay"]
+visible = false
+position = Vector2(65, 101)
+texture = ExtResource("3_dfo6l")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 0, 18, 22)
+
+[node name="PressRight" type="Sprite2D" parent="Overlay"]
+visible = false
+position = Vector2(109, 101)
+texture = ExtResource("3_dfo6l")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 22, 18, 22)
+
+[node name="PressUp" type="Sprite2D" parent="Overlay"]
+visible = false
+position = Vector2(85, 81)
+texture = ExtResource("3_dfo6l")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 44, 22, 18)
+
+[node name="PressDown" type="Sprite2D" parent="Overlay"]
+visible = false
+position = Vector2(85, 125)
+texture = ExtResource("3_dfo6l")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 62, 22, 18)
+
+[node name="PressPause" type="Sprite2D" parent="Overlay"]
+visible = false
+position = Vector2(72, 198)
+texture = ExtResource("3_dfo6l")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 80, 62, 27)
+
+[node name="PressZ" type="Sprite2D" parent="Overlay"]
+visible = false
+position = Vector2(385, 90)
+texture = ExtResource("3_dfo6l")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 107, 30, 30)
+
+[node name="PressX" type="Sprite2D" parent="Overlay"]
+visible = false
+position = Vector2(353, 121)
+texture = ExtResource("3_dfo6l")
+centered = false
+region_enabled = true
+region_rect = Rect2(0, 107, 30, 30)
