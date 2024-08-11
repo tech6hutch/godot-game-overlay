@@ -1,11 +1,46 @@
-[gd_scene load_steps=2 format=3 uid="uid://dk1ewhq1lr1h7"]
+[gd_scene load_steps=8 format=3 uid="uid://dk1ewhq1lr1h7"]
+
+[ext_resource type="Script" path="res://player/player.gd" id="1_guxws"]
+[ext_resource type="Texture2D" uid="uid://v71hfif08bmn" path="res://icon.svg" id="2_jsh6l"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8qcx5"]
 size = Vector2(8, 16)
 
+[sub_resource type="Animation" id="Animation_1eqa5"]
+resource_name = "idle"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_h7shp"]
+resource_name = "walk"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_tv5lp"]
+resource_name = "jump"
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3ais0"]
+_data = {
+"idle": SubResource("Animation_1eqa5"),
+"jump": SubResource("Animation_tv5lp"),
+"walk": SubResource("Animation_h7shp")
+}
+
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
+script = ExtResource("1_guxws")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -8)
 shape = SubResource("RectangleShape2D_8qcx5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("2_jsh6l")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_3ais0")
+}
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
