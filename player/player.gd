@@ -20,7 +20,7 @@ var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var collision_shape: CollisionShape2D = $CollisionShape2D
 
-@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var sfx_player: AudioStreamPlayer2D = $SfxPlayer
 
 
 func _physics_process(delta: float) -> void:
@@ -61,8 +61,7 @@ func _physics_process(delta: float) -> void:
 
 func is_doing_action() -> bool:
 	var anim_name := animation_player.current_animation
-	#return anim_name == "fire"
-	return false
+	return anim_name == "some_action"
 
 
 func die() -> void:

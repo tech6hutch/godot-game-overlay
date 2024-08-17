@@ -10,12 +10,12 @@ size = Vector2(8, 16)
 resource_name = "idle"
 loop_mode = 1
 
-[sub_resource type="Animation" id="Animation_h7shp"]
-resource_name = "walk"
-loop_mode = 1
-
 [sub_resource type="Animation" id="Animation_tv5lp"]
 resource_name = "jump"
+loop_mode = 1
+
+[sub_resource type="Animation" id="Animation_h7shp"]
+resource_name = "walk"
 loop_mode = 1
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3ais0"]
@@ -43,4 +43,4 @@ libraries = {
 "": SubResource("AnimationLibrary_3ais0")
 }
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="SfxPlayer" type="AudioStreamPlayer2D" parent="."]

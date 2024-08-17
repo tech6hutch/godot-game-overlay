@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dop86au3dbn7j"]
+
+[node name="GlobalAudio" type="Node"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+autoplay = true
