@@ -8,9 +8,6 @@ const JUMP_VELOCITY := -260.0
 const MAX_FALL_SPEED := -JUMP_VELOCITY
 const BOTTOM_OF_THE_SCREEN := 144 + 16
 
-const AIR_LOSS_PER_SEC := 0.01
-const AIR_LOSS_PER_HIT := 0.2
-
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity: int = ProjectSettings.get_setting("physics/2d/default_gravity")
