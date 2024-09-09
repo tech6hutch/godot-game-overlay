@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://ho6cut1w4ogq"
-path="res://.godot/imported/Early GameBoy.ttf-900cd23284345f02d01edcb102c8e386.fontdata"
+uid="uid://ehppk4f2xf36"
+path="res://.godot/imported/PressStart2P.ttf-43cd6709d9f6cd4f6f1b91eec581ec64.fontdata"
 
 [deps]
 
-source_file="res://assets/Early GameBoy.ttf"
-dest_files=["res://.godot/imported/Early GameBoy.ttf-900cd23284345f02d01edcb102c8e386.fontdata"]
+source_file="res://assets/press_start_2p/PressStart2P.ttf"
+dest_files=["res://.godot/imported/PressStart2P.ttf-43cd6709d9f6cd4f6f1b91eec581ec64.fontdata"]
 
 [params]
 

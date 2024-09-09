@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://23a5i06xuuqg"]
+[gd_scene load_steps=5 format=3 uid="uid://23a5i06xuuqg"]
 
 [ext_resource type="Script" path="res://global/gb_overlay/gb_overlay.gd" id="1_yv47p"]
 [ext_resource type="Texture2D" uid="uid://cjmfwx32pav0v" path="res://global/gb_overlay/overlay.png" id="2_vmmqu"]
+[ext_resource type="FontFile" uid="uid://ho6cut1w4ogq" path="res://assets/Early GameBoy.ttf" id="3_7o1x6"]
 [ext_resource type="Texture2D" uid="uid://c22xx6rj4ogyn" path="res://global/gb_overlay/overlay_pressed.png" id="3_dfo6l"]
 
 [node name="GbOverlay" type="Node2D"]
@@ -22,6 +23,8 @@ offset_top = 212.0
 offset_right = 320.0
 offset_bottom = 232.0
 theme_override_colors/font_color = Color(0.607843, 0.678431, 0.717647, 1)
+theme_override_fonts/font = ExtResource("3_7o1x6")
+theme_override_font_sizes/font_size = 16
 text = "Game Buy"
 horizontal_alignment = 1
 
