@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 GbOverlay="*res://global/gb_overlay/gb_overlay.tscn"
 Global="*res://global/global.gd"
 GlobalAudio="*res://global/global_audio.tscn"
+ScreenFade="*res://global/screen_fade.tscn"
 
 [display]
 

@@ -62,7 +62,10 @@ func _ready() -> void:
 		finished_typing.connect(node.show)
 	if on_finish_change_scene_to_file:
 		finished_typing.connect(func():
-			get_tree().change_scene_to_file(on_finish_change_scene_to_file)
+			var screen_fade = get_tree().root.get_node_or_null("ScreenFade")
+			(
+				screen_fade as Object if screen_fade else get_tree() as Object
+			).change_scene_to_file(on_finish_change_scene_to_file)
 		)
 
 
