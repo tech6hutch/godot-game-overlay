@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cum3a2m0n5a2v"]
+[gd_scene load_steps=4 format=3 uid="uid://cum3a2m0n5a2v"]
 
 [ext_resource type="PackedScene" uid="uid://dk1ewhq1lr1h7" path="res://player/player.tscn" id="1_a3ryl"]
+[ext_resource type="Script" path="res://scripts/typing_label.gd" id="2_aftg4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y7ukb"]
 size = Vector2(160, 16)
@@ -15,3 +16,37 @@ position = Vector2(56, 16)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(80, 144)
 shape = SubResource("RectangleShape2D_y7ukb")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 104.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Test text longer"
+autowrap_mode = 3
+visible_characters_behavior = 1
+script = ExtResource("2_aftg4")
+auto_run = true
+show_on_finish = NodePath("../Label2")
+input_action_to_wait_for = &"ui_accept"
+extra_time_to_wait = 3.0
+
+[node name="Label2" type="Label" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 32.0
+offset_right = 104.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Second box is here"
+autowrap_mode = 3
+visible_characters_behavior = 1
+script = ExtResource("2_aftg4")
+go_to_on_finish = "res://test.tscn"
+input_action_to_wait_for = &"ui_accept"
+extra_time_to_wait = 5.0
