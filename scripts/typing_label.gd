@@ -13,12 +13,13 @@ const CENSOR_FRAMES_PER_SECOND := 10.0
 const _SECONDS_PER_CENSOR_FRAME := 1.0 / CENSOR_FRAMES_PER_SECOND
 
 
-@export_group("Animation")
 @export var auto_run := false
-@export var show_on_finish: NodePath
-@export_file("*.tscn") var go_to_on_finish: String
-@export var input_action_to_wait_for := &""
-@export var extra_time_to_wait := 0.0
+@export_group("On Finish", "on_finish")
+@export var on_finish_hide_self := false
+@export var on_finish_show_node: NodePath
+@export_file("*.tscn") var on_finish_change_scene_to_file: String
+@export var on_finish_wait_for_input_action := &""
+@export var on_finish_wait_extra_time := 0.0
 
 @export_group("Effects")
 @export var censor_effect := false
@@ -46,14 +47,14 @@ func _ready() -> void:
 	else:
 		hide()
 	
-	if show_on_finish:
-		var node := get_node(show_on_finish)
+	if on_finish_hide_self:
+		finished_typing.connect(hide)
+	if on_finish_show_node:
+		var node := get_node(on_finish_show_node)
+		finished_typing.connect(node.show)
+	if on_finish_change_scene_to_file:
 		finished_typing.connect(func():
-			node.show()
-		)
-	if go_to_on_finish:
-		finished_typing.connect(func():
-			get_tree().change_scene_to_file(go_to_on_finish)
+			get_tree().change_scene_to_file(on_finish_change_scene_to_file)
 		)
 
 
@@ -76,12 +77,12 @@ func _process(delta: float) -> void:
 	
 	if is_waiting_extra_time:
 		_extra_time_waited += delta
-		if _extra_time_waited >= extra_time_to_wait:
+		if _extra_time_waited >= on_finish_wait_extra_time:
 			finished_typing.emit()
 			_is_done = true
 	elif visible_ratio == 1.0:
-		if input_action_to_wait_for and Input.is_action_just_pressed(input_action_to_wait_for):
-			if extra_time_to_wait > 0:
+		if on_finish_wait_for_input_action and Input.is_action_just_pressed(on_finish_wait_for_input_action):
+			if on_finish_wait_extra_time > 0:
 				is_waiting_extra_time = true
 				_extra_time_waited = 0
 			else:
@@ -92,8 +93,8 @@ func _process(delta: float) -> void:
 			_time_since_showed_char -= _SECONDS_PER_CHAR
 			visible_characters += 1
 			if visible_ratio == 1.0:
-				if not input_action_to_wait_for:
-					if extra_time_to_wait > 0:
+				if not on_finish_wait_for_input_action:
+					if on_finish_wait_extra_time > 0:
 						is_waiting_extra_time = true
 						_extra_time_waited = _time_since_showed_char
 					else:
