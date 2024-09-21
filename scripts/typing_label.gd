@@ -13,18 +13,26 @@ const CENSOR_FRAMES_PER_SECOND := 10.0
 const _SECONDS_PER_CENSOR_FRAME := 1.0 / CENSOR_FRAMES_PER_SECOND
 
 
+## Whether to start the text typing animation on ready.
 @export var auto_run := false
+
 @export_group("On Finish", "on_finish")
+## If true, this label will be hidden.
 @export var on_finish_hide_self := false
-@export var on_finish_show_node: NodePath
+## If set, "show()" will be called on the given node.
+@export_node_path("CanvasItem", "CanvasLayer") var on_finish_show_node: NodePath
+## If set, the current scene will be changed to the scene at the given file path.
 @export_file("*.tscn") var on_finish_change_scene_to_file: String
+## After the typing animation finishes, will wait for this action to be pressed
+## before continuing.
 @export var on_finish_wait_for_input_action := &""
+## Extra time to wait after the typing animation finishes before continuing.
+## Applies [i]after[/i] [code]on_finish_wait_for_input_action[/code], if set.
 @export var on_finish_wait_extra_time := 0.0
 
 @export_group("Effects")
+## Shows a censoring effect on asterisks in the text.
 @export var censor_effect := false
-
-var is_waiting_extra_time := false
 
 @onready var uncensored_text := text
 
@@ -59,10 +67,9 @@ func _ready() -> void:
 
 
 var _is_done := false
+var _is_waiting_extra_time := false
 var _extra_time_waited := 0.0
 var _time_since_showed_char := 0.0
-var _censor_starting_idx := 0
-var _censor_starting_idx_direction := 1
 var _time_since_censor_frame := 0.0
 
 func _process(delta: float) -> void:
@@ -75,7 +82,7 @@ func _process(delta: float) -> void:
 	if _is_done:
 		return
 	
-	if is_waiting_extra_time:
+	if _is_waiting_extra_time:
 		_extra_time_waited += delta
 		if _extra_time_waited >= on_finish_wait_extra_time:
 			finished_typing.emit()
@@ -83,7 +90,7 @@ func _process(delta: float) -> void:
 	elif visible_ratio == 1.0:
 		if on_finish_wait_for_input_action and Input.is_action_just_pressed(on_finish_wait_for_input_action):
 			if on_finish_wait_extra_time > 0:
-				is_waiting_extra_time = true
+				_is_waiting_extra_time = true
 				_extra_time_waited = 0
 			else:
 				finished_typing.emit()
@@ -95,12 +102,14 @@ func _process(delta: float) -> void:
 			if visible_ratio == 1.0:
 				if not on_finish_wait_for_input_action:
 					if on_finish_wait_extra_time > 0:
-						is_waiting_extra_time = true
+						_is_waiting_extra_time = true
 						_extra_time_waited = _time_since_showed_char
 					else:
 						finished_typing.emit()
 
 
+var _censor_starting_idx := 0
+var _censor_starting_idx_direction := 1
 func _censor_text(s: String) -> String:
 	var censor_idx := _censor_starting_idx
 	_censor_starting_idx += _censor_starting_idx_direction
@@ -115,12 +124,13 @@ func _censor_text(s: String) -> String:
 		s[i] = CENSOR_CHARS[censor_idx]
 		censor_idx += 1
 		censor_idx %= CENSOR_CHARS.size()
-		#s = s.erase(i)
-		#s = s.insert(i, CENSOR_CHARS.pick_random())
 	return s
 
 
 func run() -> void:
-	_time_since_showed_char = 0
-	_extra_time_waited = 0
+	_is_done = false
+	_is_waiting_extra_time = false
+	_extra_time_waited = 0.0
+	_time_since_showed_char = 0.0
+	_time_since_censor_frame = 0.0
 	set_process(true)
